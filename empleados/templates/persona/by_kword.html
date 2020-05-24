@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Hola</h1>
+    <form method="GET">
+        {% csrf_token %}
+        <label for="kword"></label>
+        <input 
+            type="text" 
+            name="kword" 
+            id="kword" 
+            placeholder="Ingrese el nombre aquí"
+        >
+        <button type="submit">Buscar</button>
+    </form>
+    <ul>
+        
+        {% for list in object_list %}
+            <li>{{list}}</li>
+        {% endfor %}
+            
+    </ul>
+</body>
+</html>

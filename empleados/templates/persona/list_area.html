@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block titulo %}
+    Lista por área
+{% endblock titulo %}
+
+
+{% block content %}
+{% include 'includes/header.html' %}
+    <div class="grid-container">
+        <div class="grid-x">
+            <h1 class="cell">Lista de empleados</h1>
+            <div class="cell">
+                <table>
+                    <thead>
+                        <tr>
+                            <td>Nombres</td>
+                            <td>Apellidos</td>
+                            <td>Acción</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for empleado in empleados %}
+                        <tr>
+                            
+                            <td>{{ empleado.first_name }}</td>
+                            <td>{{ empleado.last_name }}</td>
+                            <td>
+                                <a class="button" href="#">Eliminar</a>
+                                <a class="button" href="#">Modificar</a>
+                            </td>
+                            
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+    
+    
+    

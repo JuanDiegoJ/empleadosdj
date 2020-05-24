@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block titulo %}
+    Eliminar
+{% endblock titulo %}
+
+
+{% block content %}
+    
+{% endblock content %}
+    
+<h1>Eliminar</h1>
+
+<form method="POST">
+    {% csrf_token %}
+    <p>Confirme que desea eliminar</p>
+    <button type="submit">Confirmar</button>
+</form>

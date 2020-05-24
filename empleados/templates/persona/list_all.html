@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block titulo %}
+Listar
+{% endblock titulo %}
+{% block content %}
+{% include 'includes/header.html' %}
+<div class="grid-container">
+    <div class="grid-x">
+        <div class="cell">
+            <h1>Lista de empleados</h1>
+        </div>
+        <form class="cell grid-x" method="GET">{% csrf_token %}
+            <div class="cell large-7">
+                <input type="text" id="kword" name="kword" placeholder="Buscar empleado">
+            </div>
+            <div class="cell large-2">
+                <button type="submit" class="button">Buscar</button>
+            </div>
+        </form>
+        <div class="cell">
+            <table>
+                
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Nombres</th>
+                    <th>Apellidos</th>
+                    <th>Departamento</th>
+                    <th>Acción</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for list in object_list %}
+                    <tr>
+                        <td>{{list.id}}</td>
+                        <td>{{list.first_name}}</td>
+                        <td>{{list.last_name}}</td>
+                        <td>{{list.departamento}}</td>
+                        <td><a class="button" href="{% url 'persona_app:det_empleado' list.first_name %}">Ver</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <nav aria-label="Pagination">
+        <ul class="pagination text-center">
+            {% if page_obj.has_previous %}
+                <li class="pagination-previous"><a href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
+                <li><a href="?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a></li>
+            {% else %}
+                <li class="pagination-previous disabled">previous</li>
+            {% endif %}
+                <li class="current"><span class="show-for-sr"></span>{{ page_obj.number }}</li>
+            {% if page_obj.has_next %}
+                {% if page_obj.next_page_number != page_obj.paginator.num_pages %}
+                    <li><a href="?page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a></li>
+                    <li class="ellipsis"></li>
+                {% endif %}
+                    <li><a href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}</a></li>
+                    <li class="pagination-next"><a href="?page={{ page_obj.next_page_number }}">Next</a></li>
+            {% else %}
+                <li class="pagination-next disabled">Next</li>    
+            {% endif %}  
+        </ul>
+    </nav>
+</div>
+{% endblock content %}

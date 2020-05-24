@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block titulo %}
+Listar
+{% endblock titulo %}
+{% block content %}
+{% include 'includes/header.html' %}
+<div class="grid-container">
+    <div class="grid-x">
+        <div class="cell">
+            <h1>Lista de empleados</h1>
+        </div>
+        <div class="cell">
+            <table>
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Nombres</th>
+                    <th>Apellidos</th>
+                    <th>Departamento</th>
+                    <th>Acción</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for empleado in empleados %}
+                    <tr>
+                        <td>{{empleado.id}}</td>
+                        <td>{{empleado.first_name}}</td>
+                        <td>{{empleado.last_name}}</td>
+                        <td>{{empleado.departamento}}</td>
+                        <td><a class="button success" href="{% url 'persona_app:actualizar' empleado.id %}">Editar</a></td>
+                        <td><a class="button alert" href="{% url 'persona_app:eliminar' empleado.id %}">Eliminar</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <nav aria-label="Pagination">
+        <ul class="pagination text-center">
+            {% if page_obj.has_previous %}
+                <li class="pagination-previous"><a href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
+                <li><a href="?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a></li>
+            {% else %}
+                <li class="pagination-previous disabled">previous</li>
+            {% endif %}
+                <li class="current"><span class="show-for-sr"></span>{{ page_obj.number }}</li>
+            {% if page_obj.has_next %}
+                {% if page_obj.next_page_number != page_obj.paginator.num_pages %}
+                    <li><a href="?page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a></li>
+                    <li class="ellipsis"></li>
+                {% endif %}
+                    <li><a href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}</a></li>
+                    <li class="pagination-next"><a href="?page={{ page_obj.next_page_number }}">Next</a></li>
+            {% else %}
+                <li class="pagination-next disabled">Next</li>    
+            {% endif %}  
+        </ul>
+    </nav>
+</div>
+{% endblock content %}

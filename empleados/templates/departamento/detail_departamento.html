@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block titulo %}
+    Detalle departamento
+{% endblock titulo %}
+
+
+{% block content %}
+    <h1>
+        Detalle Departamento
+    </h1>
+    {{ departamento.name }}
+    {{ departamento.short_name }}
+{% endblock content %}

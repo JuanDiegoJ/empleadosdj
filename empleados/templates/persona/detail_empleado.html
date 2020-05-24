@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+
+{% block titulo %}
+    {{ object.first_name }}
+{% endblock titulo %}
+
+
+{% block content %}
+    {% include 'includes/header.html' %}
+    <div class="grid-container">
+        <div method="POST" class="cell grid-x grid-margin-x align-center">
+            <div class="cell large-4 card" style="width: 300px;">
+                <div class="card-divider">
+                    {{ empleado.get_job_display }}
+                </div>
+                
+                {% if empleado.image %}
+                    <img src="{{ empleado.image.url }}">
+                {% endif %}
+                <div class="card-section">
+                  <h4>{{ empleado.first_name }}</h4>
+                  <p>{{ empleado.departamento.name }}</p>
+                  <p><span class="label">Habilidades</span></p>
+                  <ul class="vertical menu">
+                      
+                      {% for h in empleado.habilidades.all %}
+                          <li>{{ h.habilidad }}</li>
+                      {% endfor %}
+                          
+                  </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+
+<h1></h1>
+
+<form method="get">
+    <input type="text" name="search_fn" id="search_fn">
+    <button type="submit">Enviar</button>
+</form>
+
+{{habilidades}}
